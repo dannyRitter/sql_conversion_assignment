@@ -16,7 +16,7 @@ app.get('/data', function(req,res){
 
     //SQL Query > SELECT data from table
     pg.connect(connectionString, function (err, client, done) {
-        var query = client.query("SELECT id, name, location FROM people ORDER BY name ASC");
+        var query = client.query("SELECT id, name, location, animal, address FROM people ORDER BY name ASC");
 
         // Stream results back one row at a time, push into results array
         query.on('row', function (row) {
@@ -42,7 +42,10 @@ app.post('/data', function(req,res){
 
     var addedPerson = {
         "name" : req.body.peopleAdd,
-        "location" : req.body.locationAdd
+        "location" : req.body.locationAdd,
+        "age" : req.body.ageAdd,
+        "animal" : req.body.animalAdd,
+        "address" : req.body.addressAdd
     };
 
     pg.connect(connectionString, function (err, client) {
@@ -54,7 +57,7 @@ app.post('/data', function(req,res){
         //console.log(query);
         //client.query(query);
 
-        client.query("INSERT INTO people (name, location) VALUES ($1, $2) RETURNING id", [addedPerson.name, addedPerson.location],
+        client.query("INSERT INTO people (name, location, age, animal, address) VALUES ($1, $2, $3, $4, $5) RETURNING id", [addedPerson.name, addedPerson.location, addedPerson.age, addedPerson.animal, addedPerson.address],
             function(err, result) {
                 if(err) {
                     console.log("Error inserting data: ", err);

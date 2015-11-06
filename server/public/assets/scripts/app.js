@@ -66,8 +66,12 @@ function updateDOM(data){
 
    for(var i = 0; i < data.length; i++){
       var el = "<div class='well col-md-3'>" +
+                  "<p>" + data[i].id + "</p>" +
                   "<p>" + data[i].name + "</p>" +
                   "<p>" + data[i].location + "</p>" +
+                  "<p>" + data[i].age + "</p>" +
+                  "<p>" + data[i].animal + "</p>" +
+                  "<p>" + data[i].address + "</p>" +
                   "<button class='delete btn btn-danger' data-id='" +
                      data[i]._id + "'>Delete</button>" +
                "</div>";
